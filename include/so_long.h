@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:09:47 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/26 19:42:15 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/26 23:24:24 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,14 @@ int	count_lines_in_file(char *file);
 int error_check(int fd, t_list **map, int line_nbr, int *score);
 int	check_rectangular (char *file, int total_lines);
 int count_lines_in_file(char *file);
-int	check_wall(char *line);
 int handle_key_press(int key, t_window *mlx);
 int exit_game(t_window *mlx);
 int show_movecount_in_win(t_window *mlx);
+void    create_map(t_window *mlx, t_list *map);
+void draw_img_to_map (t_window *mlx, char *line, int line_count);
+void    draw_background (t_window *mlx, char *line, int line_count);
+int	check_wall(char *line);
+int check_game_components(char *line, int *map_comps);
+int error_check (int fd, t_list **map, int line_nbr, int *score);
 
 #endif
