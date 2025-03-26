@@ -6,38 +6,46 @@
 #    By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/25 11:59:54 by jmehmy            #+#    #+#              #
-#    Updated: 2025/03/25 12:41:44 by jmehmy           ###   ########.fr        #
+#    Updated: 2025/03/26 18:51:31 by jmehmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = so_long
 
-NAME	= so_long
+SRCS = src/main.c src/map.c src/player.c src/window.c src/keys.c src/images.c src/map_check.c
+OBJS = ${SRCS:.c=.o}
 
-SRC	= ./src/check_map.c ./src/gnl.c ./src/gnl_helper.c ./src/main.c ./src/map.c ./src/handle_even.c ./src/init.c ./src/return.c ./src/utils.c \
+LIBFT = include/libft
+MLX = include/mlx_linux
+EXT_LIB = libmlx.a
 
-OBJ	= $(SRC:.c=.o)
+CC = gcc
+RM = rm -fr
+CFLAGS = -Wall -Wextra -Werror -O3 -Iinclude -I$(LIBFT) -I$(MLX)
+LDFLAGS = -L$(LIBFT) -lft -L$(MLX) -lmlx -L/usr/include/X11/extensions -lX11 -lXext
 
-CC	= gcc
+all: ${EXT_LIB} libft.a ${NAME}
 
-CFLAG	= -Wall -Wextra	-Werror -g
+%.o: %.c
+	${CC} ${CFLAGS} -c $< -o $@
 
-all	: 	$(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) $(EXT_LIB) -g $(CFLAGS) $(LDFLAGS) -o $(NAME)
 
-%.o	:	%.c
-		$(CC) $(CFLAG) -I/usr/includes -Imlx_Linux -O3 -c $< -o $@
+${EXT_LIB}:
+	make -C ${MLX}
+	cp ${MLX}/${EXT_LIB} .
+	cp ${MLX}/mlx.h include/
 
-$(NAME)	:	$(OBJ)
-		make -C ./includes/mlx_Linux
-		$(CC) $(OBJ) -L./includes/mlx_Linux -lmlx -L/usr/lib -Imlx_Linux -lXext -lX11 -lm -lz -o $(NAME)
+libft.a:
+	make -C ${LIBFT}
 
+clean:
+	${RM} ${OBJS} a.out
 
-clean	: 
-		make -C ./includes/mlx_Linux clean
-		rm -rf $(OBJ)
+fclean: clean
+	${RM} ${NAME} ${EXT_LIB}
+	make -C ${LIBFT} fclean
+	make -C ${MLX} clean
 
-fclean	:	clean
-		rm -rf $(NAME)
-
-re	:	fclean all
-
-.PHONY	: all clean fclean re
+re: fclean all
