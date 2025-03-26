@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:45:07 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/24 21:01:00 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/25 21:35:25 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ void    print_count(t_data *data)
 
 int     check_case(t_data *data, int i, int j)
 {
-    if (data->map.map[i][j] == '1')
+    if (data->map.map[j][i] == '1')
         return (1);
-    if (data->map.map[i][j] == 'C')
-     data->collect.count--;
+    if (data->map.map[j][i] == 'C')
+        data->collect.count--;
     if (data->map.map[j][i] == 'E' && data->collect.count == 0)
     {
         data->map.map[j][i] = 'P';
-        mlx_destory_image(data->window.mlx, data->player.img);
-        data->player.img = mlx_xpm_file_to_image(data->window.mlx, ".textures/onishock.xpm", &data->player.width, &data->player.height);
+        mlx_destroy_image(data->window.mlx, data->player.img);
+        data->player.img = mlx_xpm_file_to_image(data->window.mlx, "./textures/onishock.xpm", &data->player.width, &data->player.height);
         data->move++;
         print_count(data);
         print_map(data);
         ft_return(data, 0);
     }
     else if (data->map.map[j][i] == 'E' && data->collect.count != 0)
-        data->map.map[j][i] == 'F';
+        data->map.map[j][i] = 'F';
     else
         data->map.map[j][i] = 'P';
     data->player.x = i;
@@ -57,10 +57,10 @@ int move_player(int keycode, t_data *data)
         c = check_case(data, data->player.x + 1, data->player.y);
     if (keycode == 97)
         c = check_case(data , data->player.x -1, data->player.y);
-        if (keycode == 115)
+    if (keycode == 115)
 		c = check_case(data, data->player.x, data->player.y + 1);
 	if (keycode == 119)
-		c = check_case(data, d->player.x, data->player.y - 1);
+		c = check_case(data, data->player.x, data->player.y - 1);
 	if (c == 0)
 	{
 		if (data->map.map[j][i] == 'F')
@@ -74,9 +74,9 @@ int move_player(int keycode, t_data *data)
     
 }
 
-int	handle_close(t_data *d)
+int	handle_close(t_data *data)
 {
-	ft_return(d, 0);
+	ft_return(data, 0);
 	return (0);
 }
 

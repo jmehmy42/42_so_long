@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:59:24 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/24 20:32:59 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/25 22:32:55 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int parse_map (char *av1, t_data *data)
         }
         i++;
     }
-    get_next_line(fd, 0, data);
+    get_next_line(fd, 100, data);
     close(fd);
     return (0);    
 }
@@ -85,23 +85,26 @@ int check_reactangle(char *av1, t_data *data, int ret, int fd)
     char *str;
 
     fd = open(av1, O_RDONLY);
-    if (!fd || fd == -1)
+    if (fd == -1)
         return (-1);
     str = get_next_line(fd, 100, data);
     if (!str)
+    {
+        close(fd);
         return (-1);
+    }
     while (str[data->map.ord_x] && str[data->map.ord_x] != '\n')
-     data->map.ord_x++;
-    while (str)
+        data->map.ord_x++;
+    while (str != NULL)
     {
         free(str);
         str = get_next_line(fd, 100, data);
-        if (!str)
+        if (str == NULL)
             break;
         ret = check_line(str, data);
         if (ret != 0)
             return (ret);
-        if (str[0] == '\n')
+        if (str[0] != '\n')
             data->map.ord_y++;
     }
     close(fd);

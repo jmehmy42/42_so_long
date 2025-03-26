@@ -6,13 +6,13 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:18:37 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/23 19:21:32 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/25 12:29:22 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int main (int ac, char *av)
+int main (int ac, char **av)
 {
     t_data data;
     int i;

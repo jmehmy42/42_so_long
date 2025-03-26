@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 19:52:22 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/24 16:14:51 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/25 22:27:36 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,17 @@ void    put_player(t_data *data)
 
     i = 0;
     j = 0;
-    while (data->map.map[j][i] != 'P' && data->map.map[j][i] &&
-            data <= data->map.ord_y)
-            {
-                if (i == data->map.ord_x)
-                {
-                    j++;
-                    i = 0;
-                }
-                i++;
-            }
-            data->player.y = j;
-            data->player.x = i;
+    while (data->map.map[j][i] != 'P' && data->map.map[j][i] && j <= data->map.ord_y)
+    {
+        if (i == data->map.ord_x)
+        {
+            j++;
+            i = 0;
+        }
+        i++;
+       }
+        data->player.y = j;
+        data->player.x = i;
 }
 
 int init_img(t_data *data)
@@ -108,8 +107,10 @@ int ft_init(char *av1, t_data *data)
 
     set_zero(data);
     i = check_map(av1, data);
-    if (i != 0)
+    if (i != 0){
+        printf("check_map() returned error code: %d\n", i);
         return (i);
+    }
     put_player(data);
     if (init_window(data) == -1)
         return (-1);

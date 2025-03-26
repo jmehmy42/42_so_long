@@ -6,20 +6,21 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:09:47 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/24 16:16:08 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/25 12:22:26 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include "mlx_Linux/mlx.h"
 # include "errno.h"
 # include "fcntl.h"
 # include "stdio.h"
 # include "stdlib.h"
 # include "string.h"
 # include "unistd.h"
-# include <mlx.h>
+
 
 typedef struct s_win
 {

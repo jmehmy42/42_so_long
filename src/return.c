@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 19:32:00 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/23 19:49:10 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/25 12:37:47 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void    ft_return(t_data *data, int code)
         || code == -5)
         {
             if(code == -2 || code == -3 )
-                ft_putst("Error\nInvalid map\n");
+                ft_putstr("Error\nInvalid map\n");
             if (code == -4)
                 ft_putstr("Error\nPas de Fichier\n");
             if (code == -5)
