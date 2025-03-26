@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:09:47 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/26 19:03:54 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/26 19:42:15 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "stdlib.h"
 # include "string.h"
 # include "unistd.h"
+# include "limits.h"
 
 # ifdef __linux__
 #  define UP 119
@@ -45,5 +46,12 @@ typedef struct s_window
 } t_window;
 
 int	count_lines_in_file(char *file);
-int error_check(int fd);
+int error_check(int fd, t_list **map, int line_nbr, int *score);
+int	check_rectangular (char *file, int total_lines);
+int count_lines_in_file(char *file);
+int	check_wall(char *line);
+int handle_key_press(int key, t_window *mlx);
+int exit_game(t_window *mlx);
+int show_movecount_in_win(t_window *mlx);
+
 #endif

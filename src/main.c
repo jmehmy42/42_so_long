@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:18:37 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/26 19:22:03 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/26 19:40:13 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int check_rectangular (char *file, int total_lines)
 
     current_line = 1;
     fd = open (file, O_RDONLY);
-    if (fd <= 0 || fd > MAX_FD)
+    if (fd <= 0 || fd > FOPEN_MAX)
         return (0);
     line = get_next_line(fd);
     line_len = ft_strlen(line);
@@ -49,7 +49,7 @@ int count_lines_in_file(char *file)
 
     i = 0;
     fd = open(file, O_RDONLY);
-    if (fd <=0 || fd > MAX_FD);
+    if (fd <=0 || fd > FOPEN_MAX);
         return (0);
     line = get_next_line(fd);
     i++;
@@ -76,9 +76,9 @@ int	main(int ac, char **av)
 	mlx.map = 0;
 	arr[1] = count_lines_in_file(av[1]);
 	arr[0] = open(av[1], O_RDONLY);
-	if (arr[0] <= 0 || arr[0] > 1024)
+	if (arr[0] <= 0 || arr[0] > FOPEN_MAX)
 		return (0);
-	if (error_check(arr[0].& (mlx.map), arr[1], &(mlx.score)) != 1)
+	if (error_check(arr[0],  &(mlx.map), arr[1], &(mlx.score)) != 1)
 	{
 		ft_lstclear(&(mlx.map), free);
 		ft_printf("Error\n");
