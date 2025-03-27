@@ -6,7 +6,7 @@
 #    By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/25 11:59:54 by jmehmy            #+#    #+#              #
-#    Updated: 2025/03/27 18:43:17 by jmehmy           ###   ########.fr        #
+#    Updated: 2025/03/27 18:54:50 by jmehmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS = src/main.c src/map.c src/player.c src/window.c src/keys.c src/images.c sr
 OBJS = ${SRCS:.c=.o}
 
 LIBFT = include/libft
-MLX = include/mlx_linux
+MLX = include/mlx_Linux
 EXT_LIB = libmlx.a
 
 CC = gcc
