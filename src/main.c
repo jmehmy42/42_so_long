@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 12:18:37 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/26 19:40:13 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/27 18:58:31 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int check_rectangular (char *file, int total_lines)
     current_line = 1;
     fd = open (file, O_RDONLY);
     if (fd <= 0 || fd > FOPEN_MAX)
-        return (0);
+            return (0);
     line = get_next_line(fd);
     line_len = ft_strlen(line);
     current_line++;
@@ -49,7 +49,7 @@ int count_lines_in_file(char *file)
 
     i = 0;
     fd = open(file, O_RDONLY);
-    if (fd <=0 || fd > FOPEN_MAX);
+    if (fd <=0 || fd > FOPEN_MAX)
         return (0);
     line = get_next_line(fd);
     i++;
@@ -58,7 +58,7 @@ int count_lines_in_file(char *file)
         line = get_next_line(fd);
         i++;
     }
-    clsoe (fd);
+    close (fd);
     free(line);
     if (!check_rectangular(file, i))
         return (0);
@@ -85,7 +85,7 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	mlx.mlx = mlx_init();
-	mlx.mlx_win = mlx_new_window(mlx.mlx, (ft_strlen(mlx.map->content) - 1) \ 
+	mlx.mlx_win = mlx_new_window(mlx.mlx, (ft_strlen(mlx.map->content) - 1)
     * 50, ft_lstsize(mlx.map) * 50, "so_long");
 	mlx.count_move = 0;
 	create_map(&mlx, mlx.map);

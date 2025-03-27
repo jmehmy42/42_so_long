@@ -6,11 +6,11 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 22:51:34 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/26 23:01:41 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/27 18:59:53 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/so_long.h"
+#include "../include/so_long.h"
 
 void    draw_background (t_window *mlx, char *line, int line_count)
 {

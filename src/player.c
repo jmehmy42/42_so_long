@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:27:00 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/27 18:41:56 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/27 19:20:23 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ char *next_position (int dir, t_list *line, int counter)
 void    move_player(t_window *mlx, int direction)
 {
     t_list *line;
-    int counter;
     char *new_pos;
+    int counter;
 
+    counter = 0;
     line = find_player(&counter, (*mlx).map);
     new_pos = next_position(direction, line, counter);
     if (*new_pos != '1')
