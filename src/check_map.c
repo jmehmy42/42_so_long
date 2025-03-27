@@ -6,11 +6,11 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 23:10:19 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/26 23:23:47 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/27 19:20:56 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/so_long.h"
+#include "../include/so_long.h"
 
 int    check_wall(char *line)
 {
