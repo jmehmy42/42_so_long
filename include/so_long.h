@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:09:47 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/27 18:51:36 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/27 19:09:27 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ int handle_key_press(int key, t_window *mlx);
 void    move_player(t_window *mlx, int direction);
 char *next_position (int dir, t_list *line, int counter);
 t_list *find_player (int *counter, t_list *line);
-
+void draw_collectible(t_window *mlx, int x, int y);
+void    draw_exit(t_window *mlx, int x, int y);
+void    draw_player(t_window *mlx, int x, int y);
+void    draw_wall(t_window *mlx, int x, int y);
+void    draw_floor(t_window *mlx, int x, int y);
 
 #endif
