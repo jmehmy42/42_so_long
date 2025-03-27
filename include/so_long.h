@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:09:47 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/03/26 23:24:24 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/03/27 18:51:36 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,13 @@ void    draw_background (t_window *mlx, char *line, int line_count);
 int	check_wall(char *line);
 int check_game_components(char *line, int *map_comps);
 int error_check (int fd, t_list **map, int line_nbr, int *score);
+void    move_player(t_window *mlx, int direction);
+char *next_position (int dir, t_list *line, int counter);
+t_list *find_player (int *counter, t_list *line);
+int handle_key_press(int key, t_window *mlx);
+void    move_player(t_window *mlx, int direction);
+char *next_position (int dir, t_list *line, int counter);
+t_list *find_player (int *counter, t_list *line);
+
 
 #endif
