@@ -6,13 +6,13 @@
 #    By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/25 11:59:54 by jmehmy            #+#    #+#              #
-#    Updated: 2025/03/26 18:51:31 by jmehmy           ###   ########.fr        #
+#    Updated: 2025/03/27 18:43:17 by jmehmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRCS = src/main.c src/map.c src/player.c src/window.c src/keys.c src/images.c src/map_check.c
+SRCS = src/main.c src/map.c src/player.c src/window.c src/keys.c src/images.c src/check_map.c
 OBJS = ${SRCS:.c=.o}
 
 LIBFT = include/libft
