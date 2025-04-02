@@ -6,17 +6,14 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:28:53 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/01 17:28:31 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/02 13:33:04 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	exit_free(t_map *map, char *message)
+void	delete_textures(t_map *map)
 {
-	if (!map || !map->m_pack)
-		exit(ERROR);
-	// Destroy all MLX images
 	if (map->m_pack->wall)
 		mlx_destroy_image(map->m_pack->mlx, map->m_pack->wall);
 	if (map->m_pack->floor)
@@ -29,7 +26,6 @@ void	exit_free(t_map *map, char *message)
 		mlx_destroy_image(map->m_pack->mlx, map->m_pack->exit_close);
 	if (map->m_pack->exit_open)
 		mlx_destroy_image(map->m_pack->mlx, map->m_pack->exit_open);
-	// Destroy MLX window and display
 	if (map->m_pack->win)
 		mlx_destroy_window(map->m_pack->mlx, map->m_pack->win);
 	if (map->m_pack->mlx)
@@ -37,17 +33,20 @@ void	exit_free(t_map *map, char *message)
 		mlx_destroy_display(map->m_pack->mlx);
 		free(map->m_pack->mlx);
 	}
-	// Free map-related allocations
 	if (map->split_map)
 		free_string(map->split_map);
 	if (map->copy)
 		free_string(map->copy);
 	if (map->map)
 		free(map->map);
-	// Print error message in red
-	// write(2, "\033[1;31m", 7);
-	ft_putstr_fd(message, 2);
-	// write(2, "\033[0m\n", 5);
+}
+
+void	exit_free(t_map *map, char *message)
+{
+	if (!map || !map->m_pack)
+		exit(ERROR);
+	delete_textures(map);
+	ft_putstr_fd(message, 1);
 	exit(ERROR);
 }
 
@@ -59,10 +58,7 @@ void	*set_image(t_map *map, char *path)
 
 	img = mlx_xpm_file_to_image(map->m_pack->mlx, path, &width, &height);
 	if (!img)
-	{
-		printf("Error Loading image: %s\n", path); // delete this print
 		exit_free(map, "Error Loading image");
-	}
 	// if (width != IMG_SIZE || height != IMG_SIZE)
 	// 	exit_free(map, "Error: Image size incoorect!");
 	return (img);

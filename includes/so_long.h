@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:20:16 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/01 17:29:50 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/02 13:48:19 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_map
     int copy_exit;
     int player_x;
     int player_y;
+    int x_exit;
+    int y_exit;
     int height;
     t_pack *m_pack;
 } t_map;
@@ -81,5 +83,6 @@ void *set_image (t_map *map, char *path);
 void image_2_map(t_map *map, void *image, int x, int y);
 void exit_free(t_map *map, char *message);
 void clean_exit(t_map *map);
+void delete_textures(t_map *map);
 
 #endif

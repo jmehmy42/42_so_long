@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:42:25 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/01 15:27:06 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/02 13:35:28 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,33 +85,6 @@ static void	path_algo(t_map *s_map, int y, int x)
 		path_algo(s_map, y - 1, x);
 	return ;
 }
-
-/*static void path_algo(t_map *s_map, int y, int x)
-{
-    // Check for out-of-bounds
-    if (y < 0 || x < 0 || !s_map->copy[y] || !s_map->copy[y][x])
-        return;
-
-    // Base case: return if already visited or a wall
-    if (s_map->copy[y][x] == '1' || s_map->copy[y][x] == 'X')
-        return;
-
-    // Mark the current cell as visited ('X')
-    s_map->copy[y][x] = 'X';
-
-    // Count the collectible items and exit
-    if (s_map->copy[y][x] == 'C')
-        s_map->copy_items++;
-    else if (s_map->copy[y][x] == 'E')
-        s_map->copy_exit++;
-
-    // Explore the four possible directions: right, left, down, up
-    path_algo(s_map, y, x + 1);  // Right
-    path_algo(s_map, y, x - 1);  // Left
-    path_algo(s_map, y + 1, x);  // Down
-    path_algo(s_map, y - 1, x);  // Up
-}*/
-
 
 static int	path_check(t_map *s_map)
 {

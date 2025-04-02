@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:22:14 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/01 14:52:42 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/02 13:40:28 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ char	*read_map(int fd)
 	if (!s_rmap.str)
 		return (NULL);
 	if (reading_loop(&s_rmap, fd) == ERROR)
+	{
+		free(s_rmap.str);
 		return (NULL);
+	}
 	free(s_rmap.str);
 	return (s_rmap.map);
 }

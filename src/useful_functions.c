@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:16:33 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/01 14:54:23 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/02 13:36:00 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int	free_mem(char *s1, char *s2)
 
 int	ft_error(char *message)
 {
-	//write(2, "\033[1;31m", 7);
-	ft_putstr_fd(message, 2);
-	//write(2, "\033[0m", 5);
+	ft_putstr_fd(message, 1);
 	return (ERROR);
 }
