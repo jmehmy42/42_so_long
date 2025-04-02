@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:49:30 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/02 13:34:02 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/02 13:58:01 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static void	item_collected(t_map *map, int *items_count)
 	(*items_count)++;
 	if (*items_count == map->items)
 	{
-		//ft_putstr_fd("All items collected Exit is now open\n", 1);
-		image_2_map(map, map->m_pack->exit_open, map->x_exit, map->y_exit);
+	 	image_2_map(map, map->m_pack->exit_open, map->x_exit, map->y_exit);
 		mlx_destroy_image(map->m_pack->mlx, map->m_pack->exit_close);
 		map->m_pack->exit_close = NULL;
 	}

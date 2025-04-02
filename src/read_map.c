@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:22:14 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/02 13:40:28 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/02 16:19:55 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	reading_loop(t_rmap *s_rmap, int fd)
 	{
 		s_rmap->read_return = read(fd, s_rmap->str, BUFFER_SIZE);
 		if (s_rmap->read_return == ERROR)
-			return(free_mem(s_rmap->str, s_rmap->map));
+			return (free_mem(s_rmap->str, s_rmap->map));
 		if (s_rmap->read_return == 0)
 			break ;
 		if (!s_rmap->map)
@@ -42,7 +42,7 @@ static int	reading_loop(t_rmap *s_rmap, int fd)
 
 char	*read_map(int fd)
 {
-	t_rmap s_rmap;
+	t_rmap	s_rmap;
 
 	s_rmap.map = NULL;
 	s_rmap.str = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
