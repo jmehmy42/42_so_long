@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:01:54 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/02 16:21:21 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/03 09:57:17 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,5 @@ int	main(int argc, char **argv)
 		return (ERROR);
 	graphics(&s_map);
 	close(fd);
-	free_string(s_map.split_map);
 	return (0);
 }

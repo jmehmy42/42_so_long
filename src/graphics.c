@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:49:30 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/02 13:58:01 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/03 14:31:30 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static void	movement(t_map *map, int x_move, int y_move)
 		if ( items_count == map->items)
 		{
 			ft_putstr_fd("\n✨ Well done! You have completed the game. ✨\n", 1);
-			mlx_destroy_window(map->m_pack->mlx, map->m_pack->win);
-			free(map->m_pack->mlx);
+			delete_textures(map);
+			free_string(map->split_map);
 			exit(0);
 		}
 		else
@@ -87,7 +87,7 @@ static void	movement(t_map *map, int x_move, int y_move)
 	// Display movement count
 	ft_putstr_fd("Movements: ", 1);
 	ft_putnbr_fd(++count, 1);
-	write(1, "\n", 1);
+	ft_putchar_fd('\n', 1);
 	if (map->split_map[map->player_y][map->player_x] == 'C')
 		item_collected(map, &items_count);
 }
@@ -99,7 +99,8 @@ static int	key_hook(int keycode, t_map *map)
 	if (keycode == 65307)
 	{ 
 		ft_putstr_fd("Game closed.\n", 1);
-		mlx_destroy_window(map->m_pack->mlx, map->m_pack->win);
+		delete_textures(map);
+		free_string(map->split_map);
 		exit(0);
 	}
 	if (keycode == 119 || keycode == 65362)
@@ -128,7 +129,6 @@ static void	render_map(t_map *map, int x, int y)
 			{
 				map->x_exit = x;
 				map->y_exit = y;
-				//image_2_map(map, map->m_pack->exit_open, x, y);
 				image_2_map(map, map->m_pack->exit_close, x, y);
 			}
 			if (map->split_map[y][x] == 'P')
@@ -146,16 +146,33 @@ void	graphics(t_map *map)
 {
 	t_pack m_pack;
 	int width;
-
+	
 	map->m_pack = &m_pack;
 	width = (int)ft_strlen(map->split_map[0]);
 	map->m_pack->mlx = mlx_init();
 	if (!map->m_pack->mlx)
-		exit_free(map, "Error initializing MLx!");
+	{
+		ft_putstr_fd("Error initializing MLX\n", 1);
+		free(map->m_pack);
+		free_string(map->split_map);
+		exit(ERROR);
+	}
 	map->m_pack->win = mlx_new_window(map->m_pack->mlx, width * IMG_SIZE ,
 			map->height * IMG_SIZE, "so_long");
     if (!map->m_pack->win)
-		exit_free(map, "Error creating MLX window!");
+	{
+		ft_putstr_fd("Error creating MLX window\n", 1);
+		free(map->m_pack);
+		free_string(map->split_map);
+		if (map->m_pack->win)
+			mlx_destroy_window(map->m_pack->mlx, map->m_pack->win);
+		if (map->m_pack->mlx)
+		{
+			mlx_destroy_display(map->m_pack->mlx);
+			free(map->m_pack->mlx);
+		}
+		exit(ERROR);
+	}
 	map->m_pack->wall = set_image(map, WALL);
 	map->m_pack->floor = set_image(map, FLOOR);
 	map->m_pack->items = set_image(map, ITEMS);
