@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:20:16 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/02 13:48:19 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/03 15:04:52 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,13 @@ int free_mem(char *s1, char *s2);
 int ft_error(char *message);
 char *read_map(int fd);
 int verify_map(t_map *s_map);
-void graphics(t_map *map);
+void graphics(t_map *s_map);
 void *set_image (t_map *map, char *path);
 void image_2_map(t_map *map, void *image, int x, int y);
-void exit_free(t_map *map, char *message);
+void exit_free(t_map *map);
 void clean_exit(t_map *map);
 void delete_textures(t_map *map);
+void	load_textures(t_map *map);
+void error_mlx_window(t_map *map);
 
 #endif

@@ -6,11 +6,21 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:22:14 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/02 16:19:55 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/03 15:03:53 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+void	load_textures(t_map *map)
+{
+	map->m_pack->wall = set_image(map, WALL);
+	map->m_pack->floor = set_image(map, FLOOR);
+	map->m_pack->items = set_image(map, ITEMS);
+	map->m_pack->player = set_image(map, GHOST);
+	map->m_pack->exit_close = set_image(map, CLOSED);
+	map->m_pack->exit_open = set_image(map, OPENED);
+}
 
 static int	reading_loop(t_rmap *s_rmap, int fd)
 {
