@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:49:30 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/03 15:05:58 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/04 22:07:49 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	item_collected(t_map *map, int *items_count)
 	int	x;
 	int	y;
 
-	x = 0;
 	y = 0;
 	(*items_count)++;
 	if (*items_count == map->items)
@@ -55,20 +54,12 @@ static void	movement(t_map *map, int x_move, int y_move)
 		return;
 	if (map->split_map[new_y][new_x] == 'C')
 		item_collected(map, &items_count);
+	if (map->split_map[new_y][new_x] == 'E' && (items_count != map->items))
+		return(ft_putstr_fd("You Must Collect all items before exit\n", 1));	 
 	if (map->split_map[new_y][new_x] == 'E')
 	{
-		if ( items_count == map->items)
-		{
-			ft_putstr_fd("\n✨ Well done! You have completed the game. ✨\n", 1);
-			delete_textures(map);
-			free_string(map->split_map);
-			exit(0);
-		}
-		else
-		{
-			ft_putstr_fd("You Must Collect all items before exiting\n", 1);
-			return ;
-		}
+		ft_putstr_fd("\n✨ Well done! You have completed the game. ✨\n", 1);
+		del_and_free(map, 1);
 	}
 	map->split_map[map->player_y][map->player_x] = '0';
 	map->player_x = new_x;
@@ -77,8 +68,6 @@ static void	movement(t_map *map, int x_move, int y_move)
 	image_2_map(map, map->m_pack->floor, map->player_x - x_move, map->player_y - y_move);
 	image_2_map(map, map->m_pack->player, map->player_x, map->player_y);
 	ft_printf("Movements: %d\n", ++count);
-	if (map->split_map[map->player_y][map->player_x] == 'C')
-		item_collected(map, &items_count);
 }
 
 static int	key_hook(int keycode, t_map *map)
@@ -88,9 +77,7 @@ static int	key_hook(int keycode, t_map *map)
 	if (keycode == 65307)
 	{ 
 		ft_putstr_fd("Game closed.\n", 1);
-		delete_textures(map);
-		free_string(map->split_map);
-		exit(0);
+		del_and_free(map, 1);
 	}
 	if (keycode == 119 || keycode == 65362)
 		movement(map, 0, -1);
@@ -133,10 +120,9 @@ static void	render_map(t_map *map, int x, int y)
 
 void	graphics(t_map *map)
 {
-	t_pack m_pack;
 	int width;
 	
-	map->m_pack = &m_pack;
+	map->m_pack = ft_calloc(1, sizeof(t_pack));
 	width = (int)ft_strlen(map->split_map[0]);
 	map->m_pack->mlx = mlx_init();
 	if (!map->m_pack->mlx)
@@ -153,6 +139,6 @@ void	graphics(t_map *map)
 	load_textures(map);
 	render_map(map, 0, 0);
 	mlx_hook(map->m_pack->win, 2, 1L << 0,  key_hook, map);
-    mlx_hook(map->m_pack->win, 17, 0, (void *)clean_exit, map);
+    mlx_hook(map->m_pack->win, 17, 0, (void *)close_window, map);
 	mlx_loop(map->m_pack->mlx);
 }

@@ -6,22 +6,28 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:01:54 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/03 09:57:17 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/04 22:15:05 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	clean_exit(t_map *map)
+void	close_window(t_map *map)
 {
-	if (map->m_pack->win)
-		mlx_destroy_window(map->m_pack->mlx, map->m_pack->win);
-	if (map->m_pack->mlx)
-	{
-		mlx_destroy_display(map->m_pack->mlx);
-		free(map->m_pack->mlx);
-	}
+	delete_textures(map);
+	free(map->m_pack);
+	free_string(map->split_map);
 	exit(0);
+}
+
+void	load_textures(t_map *map)
+{
+	map->m_pack->wall = set_image(map, WALL);
+	map->m_pack->floor = set_image(map, FLOOR);
+	map->m_pack->items = set_image(map, ITEMS);
+	map->m_pack->player = set_image(map, GHOST);
+	map->m_pack->exit_close = set_image(map, CLOSED);
+	map->m_pack->exit_open = set_image(map, OPENED);
 }
 
 static int	ber_verify(char *path)
@@ -32,7 +38,7 @@ static int	ber_verify(char *path)
 	while (path[len])
 		len++;
 	if ((len > 4) && (path[len - 4] == '.') && (path[len - 3] == 'b' || path[len
-			- 3] == 'B') && (path[len - 2] == 'e' || path[len - 2] == 'E')
+				- 3] == 'B') && (path[len - 2] == 'e' || path[len - 2] == 'E')
 		&& (path[len - 1] == 'r' || path[len - 1] == 'R'))
 		return (0);
 	return (ERROR);
@@ -41,7 +47,7 @@ static int	ber_verify(char *path)
 int	main(int argc, char **argv)
 {
 	int		fd;
-	t_map	s_map;
+	t_map	s_game;
 
 	if (argc != 2)
 		return (ft_error("Error more or less than one arguments \n"));
@@ -50,13 +56,12 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Error opening file or no file found\n"));
-	s_map.map = read_map(fd);
+	s_game.map = read_map(fd);
 	close(fd);
-	if (!s_map.map)
+	if (!s_game.map)
 		return (ERROR);
-	if (verify_map(&s_map) == ERROR)
+	if (verify_map(&s_game) == -1)
 		return (ERROR);
-	graphics(&s_map);
-	close(fd);
+	graphics(&s_game);
 	return (0);
 }

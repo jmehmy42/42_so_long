@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:42:25 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/02 13:35:28 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/04 22:13:29 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	path_check(t_map *s_map)
 	path_algo(s_map, s_map->player_y, s_map->player_x);
 	free_string(s_map->copy);
 	if (s_map->copy_exit != 1 || s_map->copy_items != s_map->items)
-		return (ft_error("Error: Can't collect all collectibles/escape map \n"));
+		return (ft_error("Error: Can't collect all collectibles\n"));
 	return (0);
 }
 
