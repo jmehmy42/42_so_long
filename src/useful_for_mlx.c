@@ -59,7 +59,7 @@ void	*set_image(t_map *map, char *path)
 	if (!img)
 	{
 		ft_putstr_fd("Error loading image\n", 2);
-		del_and_free(map, 1);
+		del_and_free(map, 0);
 	}
 	return (img);
 }
@@ -70,6 +70,6 @@ void	image_2_map(t_map *map, void *image, int x, int y)
 			* IMG_SIZE, y * IMG_SIZE) == -1)
 	{
 		ft_putstr_fd("Error displaying image\n", 2);
-		del_and_free(map, 1);
+		del_and_free(map, 0);
 	}
 }
