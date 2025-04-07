@@ -18,7 +18,7 @@
 # include "fcntl.h"
 # include "unistd.h"
 
-# define ERROR 1
+# define ERROR -1
 
 # ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
