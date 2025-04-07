@@ -43,7 +43,7 @@ void	del_and_free(t_map *map, int code)
 	delete_textures(map);
 	free(map->m_pack);
 	free_string(map->split_map);
-	if (code == 0)
+	if (code != 0)
 		exit(0);
 	else
 		exit(ERROR);
