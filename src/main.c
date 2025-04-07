@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:01:54 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/04 22:15:05 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/05 20:07:26 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Error opening file or no file found\n"));
-	s_game.map = read_map(fd);
-	close(fd);
-	if (!s_game.map)
+	if(read_map(&s_game, fd) == -1)
+	{
+		close(fd);
 		return (ERROR);
+	}
+	close(fd);
 	if (verify_map(&s_game) == -1)
 		return (ERROR);
 	graphics(&s_game);

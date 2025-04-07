@@ -6,12 +6,12 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:22:14 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/04 20:51:45 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/05 20:14:24 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
+/*
 static int	reading_loop(t_rmap *s_rmap, int fd)
 {
 	while (1)
@@ -38,21 +38,34 @@ static int	reading_loop(t_rmap *s_rmap, int fd)
 		ft_bzero(s_rmap->buffer, BUFFER_SIZE + 1);
 	}
 	return (0);
-}
+}*/
 
-char	*read_map(int fd)
+int	read_map(t_map *s_map, int fd)
 {
-	t_rmap	s_rmap;
+	char *line;
+	char *tmp;
 
-	s_rmap.result = NULL;
-	s_rmap.buffer = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	if (!s_rmap.buffer)
-		return (NULL);
-	if (reading_loop(&s_rmap, fd) == ERROR)
+	s_map->map = NULL;
+	while ((line = get_next_line(fd)))
 	{
-		free(s_rmap.buffer);
-		return (NULL);
+		if(line[0] == '\n')
+		{
+			free(line);
+			free(s_map->map);
+			return (ft_error("Error empty line in map\n"));
+		}
+		tmp = s_map->map;
+		if(!tmp)
+			s_map->map = ft_strdup(line);
+		else
+			s_map->map = ft_strjoin(tmp, line);
+		free(tmp);
+		free(line);
+		if (!s_map->map)
+		{
+			free(s_map->map);
+			return (ft_error("Error: reading map\n"));
+		}
 	}
-	free(s_rmap.buffer);
-	return (s_rmap.result);
+	return (0);
 }

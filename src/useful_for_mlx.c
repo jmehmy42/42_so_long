@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:28:53 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/04 22:17:06 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/07 11:00:11 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	del_and_free(t_map *map, int code)
 	delete_textures(map);
 	free(map->m_pack);
 	free_string(map->split_map);
-	if (code != 0)
+	if (code == 0)
 		exit(0);
 	else
 		exit(ERROR);
@@ -59,7 +59,7 @@ void	*set_image(t_map *map, char *path)
 	if (!img)
 	{
 		ft_putstr_fd("Error loading image\n", 2);
-		del_and_free(map, 0);
+		del_and_free(map, 1);
 	}
 	return (img);
 }
@@ -70,6 +70,6 @@ void	image_2_map(t_map *map, void *image, int x, int y)
 			* IMG_SIZE, y * IMG_SIZE) == -1)
 	{
 		ft_putstr_fd("Error displaying image\n", 2);
-		del_and_free(map, 0);
+		del_and_free(map, 1);
 	}
 }

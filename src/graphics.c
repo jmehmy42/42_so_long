@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:49:30 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/04 22:07:49 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/07 11:00:22 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	movement(t_map *map, int x_move, int y_move)
 	if (map->split_map[new_y][new_x] == 'E')
 	{
 		ft_putstr_fd("\n✨ Well done! You have completed the game. ✨\n", 1);
-		del_and_free(map, 1);
+		del_and_free(map, 0);
 	}
 	map->split_map[map->player_y][map->player_x] = '0';
 	map->player_x = new_x;
@@ -77,7 +77,7 @@ static int	key_hook(int keycode, t_map *map)
 	if (keycode == 65307)
 	{ 
 		ft_putstr_fd("Game closed.\n", 1);
-		del_and_free(map, 1);
+		del_and_free(map, 0);
 	}
 	if (keycode == 119 || keycode == 65362)
 		movement(map, 0, -1);
@@ -127,13 +127,13 @@ void	graphics(t_map *map)
 	map->m_pack->mlx = mlx_init();
 	if (!map->m_pack->mlx)
 	{
-		ft_putstr_fd("Error initializing MLX\n", 1);
+		ft_putstr_fd("Error MLX initializing fail\n", 1);
 		free(map->m_pack);
 		free_string(map->split_map);
 		exit(ERROR);
 	}
 	map->m_pack->win = mlx_new_window(map->m_pack->mlx, width * IMG_SIZE ,
-			map->height * IMG_SIZE, "so_long");
+		map->height * IMG_SIZE, "so_long");
     if (!map->m_pack->win)
 		error_mlx_window(map);
 	load_textures(map);

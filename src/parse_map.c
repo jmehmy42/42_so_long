@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:42:25 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/04 22:13:29 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/06 21:02:36 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	chars_check(t_map *s_map, char *str)
 			else if (s_map->map[i] == 'E')
 				s_map->exit++;
 			else if ((s_map->map[0] == '\n') || (s_map->map[i] == '\n'
-					&& (s_map->map[i + 1] == '\n' || s_map->map[i + 1] == 0)))
+					&& (s_map->map[i + 1] == '\n')))
 				return (ft_error("Error: Consecutive newlines or at end\n"));
 			i++;
 		}
@@ -36,7 +36,7 @@ static int	chars_check(t_map *s_map, char *str)
 			return (ft_error("Error: Character other than 01PCE\n"));
 	}
 	if (s_map->start != 1 || s_map->items == 0 || s_map->exit != 1)
-		return (ft_error("Error: Wrong quantity of start/collectibles/exit\n"));
+		return (ft_error("Error: Wrong no. of Player/collectibles/exit\n"));
 	return (0);
 }
 
@@ -45,21 +45,21 @@ static int	dimension_check(t_map *s_map, int x, int y, int len)
 	while (s_map->split_map[0][len])
 	{
 		if (s_map->split_map[0][len] != '1')
-			return (ft_error("Error: Not rectangle/not using 1 outlines\n"));
+			return (ft_error("Error: not rectangle/not using 1 outline\n"));
 		len++;
 	}
 	while (s_map->split_map[y + 1])
 	{
 		if (s_map->split_map[y][0] != '1' || s_map->split_map[y][len - 1] != '1'
 			|| ((int)ft_strlen(s_map->split_map[y]) != len))
-			return (ft_error("Error:not a rectangle/not using 1 outlines\n"));
+			return (ft_error("Error: not a rectangle/not using 1 outline\n"));
 		y++;
 	}
 	while (s_map->split_map[y][x])
 	{
 		if (s_map->split_map[y][x] != '1'
 			|| ((int)ft_strlen(s_map->split_map[y]) != len))
-			return (ft_error("Error:not a rectangle/not using 1 outlines\n"));
+			return (ft_error("Error:not a rectangle or not using 1 outline\n"));
 		x++;
 	}
 	if (++y < 3 || len < 3)
@@ -106,22 +106,25 @@ int	verify_map(t_map *s_map)
 	s_map->items = 0;
 	s_map->exit = 0;
 	s_map->start = 0;
-	if (ft_strlen(s_map->map) >= 400)
+	if (s_map->map == NULL)
+	{
+		ft_error("Error: map is empty\n");
+		return (free_mem(s_map->map, NULL));
+	}
+	if (ft_strlen(s_map->map) >= 1000)
 	{
 		ft_error("Error: map is too big\n");
 		return (free_mem(s_map->map, NULL));
 	}
-	if (chars_check(s_map, "01PEC\n") == ERROR)
+	if (chars_check(s_map, "01PEC\n") == -1)
 		return (free_mem(s_map->map, NULL));
 	s_map->split_map = ft_split(s_map->map, '\n');
 	if (!s_map->split_map)
 		return (free_mem(s_map->map, NULL));
-	if ((dimension_check(s_map, 0, 1, 0) == ERROR)
-		|| (path_check(s_map) == ERROR))
-	{
-		free_string(s_map->split_map);
-		return (free_mem(s_map->map, NULL));
-	}
+	if ((dimension_check(s_map, 0, 1, 0) == -1)
+		|| (path_check(s_map) == -1))
+		return (free_string(s_map->split_map),
+			free_mem(s_map->map, NULL));
 	free(s_map->map);
 	return (0);
 }

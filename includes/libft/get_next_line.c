@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmehmy < jmehmy@student.42lisboa.com >     +#+  +:+       +#+        */
+/*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 13:06:37 by jmehmy            #+#    #+#             */
-/*   Updated: 2024/12/26 16:34:43 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/05 20:33:57 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-/*int main()
+/*
+int main()
 {
 	int fd;
 	char *line;
-	//const char *long = "echo \"A$(head -c 15000 
-	//	< /dev/urandom | tr -dc 'a-zA-Z0-9')\" > long_test1.txt";
-	//system(long);
+	// const char *long = ("echo \"A$(head -c 15000 
+	// 	< /dev/urandom | tr -dc 'a-zA-Z0-9')\" > long_test1.txt");
+	// system(long);
 	//system("echo \"hello\\n\" > test1.txt");
 	fd = ("test1.txt", O_RDONLY);
 	
