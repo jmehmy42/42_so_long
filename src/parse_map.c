@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:42:25 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/06 21:02:36 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/07 18:45:36 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,39 @@ static int	chars_check(t_map *s_map, char *str)
 
 static int	dimension_check(t_map *s_map, int x, int y, int len)
 {
-	while (s_map->split_map[0][len])
+	int line_len;
+
+	len = ft_strlen(s_map->split_map[0]);
+
+	while (s_map->split_map[0][x])
 	{
-		if (s_map->split_map[0][len] != '1')
-			return (ft_error("Error: not rectangle/not using 1 outline\n"));
-		len++;
+		if (s_map->split_map[0][x] != '1')
+			return (ft_error("Error: top wall not enclosed with 1s\n"));
+		x++;
 	}
+	y = 1;
 	while (s_map->split_map[y + 1])
 	{
-		if (s_map->split_map[y][0] != '1' || s_map->split_map[y][len - 1] != '1'
-			|| ((int)ft_strlen(s_map->split_map[y]) != len))
-			return (ft_error("Error: not a rectangle/not using 1 outline\n"));
+		line_len = ft_strlen(s_map->split_map[y]);
+		if (line_len != len)
+			return (ft_error("Error: not a rectangle\n"));
+		if (s_map->split_map[y][0] != '1' || s_map->split_map[y][len - 1] != '1')
+			return (ft_error("Error: side walls not close with 1\n"));
 		y++;
 	}
-	while (s_map->split_map[y][x])
+
+	if ((int)ft_strlen(s_map->split_map[y]) != len)
+		return (ft_error("Error: bottom row not correct\n"));
+	x = 0;
+	while ( x < len)
 	{
-		if (s_map->split_map[y][x] != '1'
-			|| ((int)ft_strlen(s_map->split_map[y]) != len))
-			return (ft_error("Error:not a rectangle or not using 1 outline\n"));
+		if (s_map->split_map[y][x] != '1')
+			return (ft_error("Error: bottom wall not close with 1\n"));
 		x++;
 	}
 	if (++y < 3 || len < 3)
 		return (ft_error("Error: Rectangle too small\n"));
+
 	s_map->height = y;
 	return (0);
 }
@@ -108,7 +119,7 @@ int	verify_map(t_map *s_map)
 	s_map->start = 0;
 	if (s_map->map == NULL)
 	{
-		ft_error("Error: map is empty\n");
+		ft_error("Error: map is invalid\n");
 		return (free_mem(s_map->map, NULL));
 	}
 	if (ft_strlen(s_map->map) >= 1000)
@@ -121,10 +132,8 @@ int	verify_map(t_map *s_map)
 	s_map->split_map = ft_split(s_map->map, '\n');
 	if (!s_map->split_map)
 		return (free_mem(s_map->map, NULL));
-	if ((dimension_check(s_map, 0, 1, 0) == -1)
-		|| (path_check(s_map) == -1))
-		return (free_string(s_map->split_map),
-			free_mem(s_map->map, NULL));
+	if ((dimension_check(s_map, 0, 1, 0) == -1) || (path_check(s_map) == -1))
+		return (free_string(s_map->split_map), free_mem(s_map->map, NULL));
 	free(s_map->map);
 	return (0);
 }

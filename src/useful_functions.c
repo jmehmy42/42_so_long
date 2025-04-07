@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:16:33 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/06 21:21:36 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/07 18:04:53 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	char_finder(char *s, char c)
 			return (i);
 		i++;
 	}
-	return (-1);
+	return (ERROR);
 }
 
 int	free_mem(char *s1, char *s2)
@@ -57,7 +57,7 @@ int	free_mem(char *s1, char *s2)
 int	ft_error(char *message)
 {
 	ft_putstr_fd(message, 1);
-	return (1);
+	return (-1);
 }
 
 void	error_mlx_window(t_map *map)

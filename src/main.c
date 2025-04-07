@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:01:54 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/05 20:07:26 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/07 17:19:42 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	ber_verify(char *path)
 	int	len;
 
 	len = 0;
+	if(!path)
+		return(1);
 	while (path[len])
 		len++;
 	if ((len > 4) && (path[len - 4] == '.') && (path[len - 3] == 'b' || path[len
@@ -59,7 +61,7 @@ int	main(int argc, char **argv)
 	if(read_map(&s_game, fd) == -1)
 	{
 		close(fd);
-		return (ERROR);
+		return (-1);
 	}
 	close(fd);
 	if (verify_map(&s_game) == -1)
