@@ -59,7 +59,7 @@ static void	movement(t_map *map, int x_move, int y_move)
 	if (map->split_map[new_y][new_x] == 'E')
 	{
 		ft_putstr_fd("\n✨ Well done! You have completed the game. ✨\n", 1);
-		del_and_free(map, 0);
+		del_and_free(map, 1);
 	}
 	map->split_map[map->player_y][map->player_x] = '0';
 	map->player_x = new_x;
@@ -77,7 +77,7 @@ static int	key_hook(int keycode, t_map *map)
 	if (keycode == 65307)
 	{ 
 		ft_putstr_fd("Game closed.\n", 1);
-		del_and_free(map, 0);
+		del_and_free(map, 1);
 	}
 	if (keycode == 119 || keycode == 65362)
 		movement(map, 0, -1);
