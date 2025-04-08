@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:16:33 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/07 18:04:53 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/08 18:35:20 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_error(char *message)
 	return (-1);
 }
 
-void	error_mlx_window(t_map *map)
+void	free_mlx_window(t_map *map)
 {
 	ft_putstr_fd("Error creating MLX window\n", 2);
 	free_string(map->split_map);

@@ -6,14 +6,14 @@
 #    By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/01 14:25:19 by jmehmy            #+#    #+#              #
-#    Updated: 2025/04/04 20:40:10 by jmehmy           ###   ########.fr        #
+#    Updated: 2025/04/08 18:36:31 by jmehmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
 SRCS = src/main.c src/graphics.c src/parse_map.c src/read_map.c src/useful_for_mlx.c \
-		src/useful_functions.c 
+		src/useful_functions.c src/movements.c
 OBJS = ${SRCS:.c=.o}
 
 LIBFT = includes/libft

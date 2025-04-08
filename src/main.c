@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:01:54 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/07 17:19:42 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/08 16:30:23 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ void	close_window(t_map *map)
 	free(map->m_pack);
 	free_string(map->split_map);
 	exit(0);
+}
+
+void	free_mlx(t_map *map)
+{
+	ft_putstr_fd("Error MLX initializing fail\n", 1);
+	free(map->m_pack);
+	free_string(map->split_map);
+	exit(ERROR);
 }
 
 void	load_textures(t_map *map)

@@ -6,76 +6,30 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:49:30 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/07 11:00:22 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/08 21:13:49 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static void	item_collected(t_map *map, int *items_count)
+void draw_exit(t_map *map, int x, int y)
 {
-	int	x;
-	int	y;
-
-	y = 0;
-	(*items_count)++;
-	if (*items_count == map->items)
+	map->x_exit = x;
+	map->y_exit = y;
+	if (map->open_door)
 	{
-	 	image_2_map(map, map->m_pack->exit_open, map->x_exit, map->y_exit);
-		mlx_destroy_image(map->m_pack->mlx, map->m_pack->exit_close);
-		map->m_pack->exit_close = NULL;
+		image_2_map(map, map->m_pack->exit_open, x, y);
 	}
-	mlx_destroy_image(map->m_pack->mlx, map->m_pack->items);
-	map->m_pack->items = set_image(map, ITEMS);
-	map->split_map[map->player_y][map->player_x] = '0';
-	while (map->split_map[y])
-	{
-		x = 0;
-		while (map->split_map[y][x])
-		{
-			if (map->split_map[y][x] == 'C')
-				image_2_map(map, map->m_pack->items, x, y);
-			x++;
-		}
-		y++;
-	}
+	else
+		image_2_map(map, map->m_pack->exit_close, x, y);
 }
 
-static void	movement(t_map *map, int x_move, int y_move)
+int	key_hook(int keycode, t_map *map)
 {
-	static int	items_count = 0;
-	static int	count = 0;
-	int new_x ; 
-	int new_y ;
-
-	new_x = map->player_x + x_move;
-	new_y = map->player_y + y_move;
-	if (map->split_map[new_y][new_x] == '1')
-		return;
-	if (map->split_map[new_y][new_x] == 'C')
-		item_collected(map, &items_count);
-	if (map->split_map[new_y][new_x] == 'E' && (items_count != map->items))
-		return(ft_putstr_fd("You Must Collect all items before exit\n", 1));	 
-	if (map->split_map[new_y][new_x] == 'E')
-	{
-		ft_putstr_fd("\n✨ Well done! You have completed the game. ✨\n", 1);
-		del_and_free(map, 1);
-	}
-	map->split_map[map->player_y][map->player_x] = '0';
-	map->player_x = new_x;
-	map->player_y = new_y;
-	map->split_map[map->player_y][map->player_x] = 'P';
-	image_2_map(map, map->m_pack->floor, map->player_x - x_move, map->player_y - y_move);
-	image_2_map(map, map->m_pack->player, map->player_x, map->player_y);
-	ft_printf("Movements: %d\n", ++count);
-}
-
-static int	key_hook(int keycode, t_map *map)
-{
-	if(!map)
+	if (!map)
 		return (0);
 	if (keycode == 65307)
-	{ 
+	{
 		ft_putstr_fd("Game closed.\n", 1);
 		del_and_free(map, 1);
 	}
@@ -90,10 +44,11 @@ static int	key_hook(int keycode, t_map *map)
 	return (0);
 }
 
-static void	render_map(t_map *map, int x, int y)
+void	render_map(t_map *map, int x, int y)
 {
 	while (map->split_map[y])
 	{
+		x = 0;
 		while (map->split_map[y][x])
 		{
 			if (map->split_map[y][x] == '1')
@@ -103,9 +58,9 @@ static void	render_map(t_map *map, int x, int y)
 				image_2_map(map, map->m_pack->floor, x, y);
 			else if (map->split_map[y][x] == 'E')
 			{
-				map->x_exit = x;
-				map->y_exit = y;
-				image_2_map(map, map->m_pack->exit_close, x, y);
+				if (map->tile_under_player == 'E')
+					draw_exit(map, x, y);
+				image_2_map (map, map->m_pack->exit_close, x , y);
 			}
 			if (map->split_map[y][x] == 'P')
 				image_2_map(map, map->m_pack->player, x, y);
@@ -113,32 +68,31 @@ static void	render_map(t_map *map, int x, int y)
 				image_2_map(map, map->m_pack->items, x, y);
 			x++;
 		}
-		x = 0;
 		y++;
 	}
 }
 
 void	graphics(t_map *map)
 {
-	int width;
-	
+	int	width;
+
+	map->open_door = 0;
+	map->player_exit = 0;
+	map->tile_under_player = '0';
+	map->x_exit = -1;
+	map->y_exit = -1;
 	map->m_pack = ft_calloc(1, sizeof(t_pack));
 	width = (int)ft_strlen(map->split_map[0]);
 	map->m_pack->mlx = mlx_init();
 	if (!map->m_pack->mlx)
-	{
-		ft_putstr_fd("Error MLX initializing fail\n", 1);
-		free(map->m_pack);
-		free_string(map->split_map);
-		exit(ERROR);
-	}
-	map->m_pack->win = mlx_new_window(map->m_pack->mlx, width * IMG_SIZE ,
-		map->height * IMG_SIZE, "so_long");
-    if (!map->m_pack->win)
-		error_mlx_window(map);
+		free_mlx(map);
+	map->m_pack->win = mlx_new_window(map->m_pack->mlx, width * IMG_SIZE,
+			map->height * IMG_SIZE, "so_long");
+	if (!map->m_pack->win)
+		free_mlx_window(map);
 	load_textures(map);
 	render_map(map, 0, 0);
-	mlx_hook(map->m_pack->win, 2, 1L << 0,  key_hook, map);
-    mlx_hook(map->m_pack->win, 17, 0, (void *)close_window, map);
+	mlx_hook(map->m_pack->win, 2, 1L << 0, key_hook, map);
+	mlx_hook(map->m_pack->win, 17, 0, (void *)close_window, map);
 	mlx_loop(map->m_pack->mlx);
 }
