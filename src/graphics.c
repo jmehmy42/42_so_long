@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:49:30 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/08 21:13:49 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/08 23:53:17 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void draw_exit(t_map *map, int x, int y)
 {
-	map->x_exit = x;
-	map->y_exit = y;
 	if (map->open_door)
 	{
 		image_2_map(map, map->m_pack->exit_open, x, y);
@@ -58,9 +56,12 @@ void	render_map(t_map *map, int x, int y)
 				image_2_map(map, map->m_pack->floor, x, y);
 			else if (map->split_map[y][x] == 'E')
 			{
-				if (map->tile_under_player == 'E')
-					draw_exit(map, x, y);
-				image_2_map (map, map->m_pack->exit_close, x , y);
+				map->x_exit = x;
+				map->y_exit = y;
+				if (map->open_door)
+					image_2_map(map, map->m_pack->exit_open, x, y);
+				else
+					image_2_map(map, map->m_pack->exit_close, x, y);
 			}
 			if (map->split_map[y][x] == 'P')
 				image_2_map(map, map->m_pack->player, x, y);

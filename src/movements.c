@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 18:05:41 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/08 21:09:47 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/08 23:55:25 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	unlock_exit(t_map *map)
 {
 	map->open_door = 1;
-	//draw_exit(map, map->x_exit, map->y_exit);
 	render_map(map, 0, 0);
 	image_2_map(map, map->m_pack->exit_open, map->x_exit, map->y_exit);
 	mlx_destroy_image(map->m_pack->mlx, map->m_pack->exit_close);
@@ -67,12 +66,9 @@ void	movement(t_map *map, int x, int y)
 		{
 			ft_putstr_fd("\n✨ Well done! You have completed the game. ✨\n", 1);
 			del_and_free(map, 1);
-			return ;
 		}
 		else
-		{
 			ft_putstr_fd("collect all items before exit\n", 1);
-		}
 	}
 	map->split_map[map->player_y][map->player_x] = map->tile_under_player;
 	if (map->split_map[new_y][new_x] == 'E')
