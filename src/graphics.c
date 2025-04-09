@@ -6,31 +6,11 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 12:49:30 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/09 13:39:35 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/09 16:08:05 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
-void	draw_exit(t_map *map, int x, int y)
-{
-	if (map->open_door)
-	{
-		image_2_map(map, map->m_pack->exit_open, x, y);
-	}
-	else
-		image_2_map(map, map->m_pack->exit_close, x, y);
-}
-
-void	draw_exit2(t_map *map, int x, int y)
-{
-	map->x_exit = x;
-	map->y_exit = y;
-	if (map->open_door)
-		image_2_map(map, map->m_pack->exit_open, x, y);
-	else
-		image_2_map(map, map->m_pack->exit_close, x, y);
-}
 
 int	key_hook(int keycode, t_map *map)
 {
@@ -82,7 +62,7 @@ void	graphics(t_map *map)
 
 	map->open_door = 0;
 	map->player_exit = 0;
-	map->tile_under_player = '0';
+	map->current_tile = '0';
 	map->x_exit = -1;
 	map->y_exit = -1;
 	map->m_pack = ft_calloc(1, sizeof(t_pack));
