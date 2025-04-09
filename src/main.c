@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:01:54 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/08 16:30:23 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/09 14:41:45 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,12 @@ static int	ber_verify(char *path)
 	int	len;
 
 	len = 0;
-	if(!path)
-		return(1);
+	if (!path)
+		return (1);
 	while (path[len])
 		len++;
-	if ((len > 4) && (path[len - 4] == '.') && (path[len - 3] == 'b' || path[len
-				- 3] == 'B') && (path[len - 2] == 'e' || path[len - 2] == 'E')
-		&& (path[len - 1] == 'r' || path[len - 1] == 'R'))
+	if ((len > 4) && (path[len - 4] == '.') && (path[len - 3] == 'b')
+		&& (path[len - 2] == 'e') && (path[len - 1] == 'r'))
 		return (0);
 	return (ERROR);
 }
@@ -66,7 +65,7 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (ft_error("Error opening file or no file found\n"));
-	if(read_map(&s_game, fd) == -1)
+	if (read_map(&s_game, fd) == -1)
 	{
 		close(fd);
 		return (-1);

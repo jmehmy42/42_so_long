@@ -6,76 +6,48 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:42:25 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/08 18:35:51 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/09 13:42:41 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static int	chars_check(t_map *s_map, char *str)
+static void	check_minium_size(t_map *s_map, int y, int len)
 {
-	int	i;
-
-	i = 0;
-	while (s_map->map[i])
+	if (++y < 3 || len < 3)
 	{
-		if (char_finder(str, s_map->map[i]) >= 0)
-		{
-			if (s_map->map[i] == 'P')
-				s_map->start++;
-			else if (s_map->map[i] == 'C')
-				s_map->items++;
-			else if (s_map->map[i] == 'E')
-				s_map->exit++;
-			else if ((s_map->map[0] == '\n') || (s_map->map[i] == '\n'
-					&& (s_map->map[i + 1] == '\n')))
-				return (ft_error("Error: Consecutive newlines or at end\n"));
-			i++;
-		}
-		else
-			return (ft_error("Error: Character other than 01PCE\n"));
+		ft_error("Error: Rectangle too small\n");
+		return ;
 	}
-	if (s_map->start != 1 || s_map->items == 0 || s_map->exit != 1)
-		return (ft_error("Error: Wrong no. of Player/collectibles/exit\n"));
-	return (0);
+	s_map->height = y;
 }
 
 static int	dimension_check(t_map *s_map, int x, int y, int len)
 {
-	int line_len;
+	int	line_len;
 
 	len = ft_strlen(s_map->split_map[0]);
-
 	while (s_map->split_map[0][x])
-	{
-		if (s_map->split_map[0][x] != '1')
-			return (ft_error("Error: top wall not enclosed with 1s\n"));
-		x++;
-	}
+		if (s_map->split_map[0][x++] != '1')
+			return (ft_error("Error: top wall not close with 1s\n"));
 	y = 1;
 	while (s_map->split_map[y + 1])
 	{
 		line_len = ft_strlen(s_map->split_map[y]);
 		if (line_len != len)
 			return (ft_error("Error: not a rectangle\n"));
-		if (s_map->split_map[y][0] != '1' || s_map->split_map[y][len - 1] != '1')
-			return (ft_error("Error: side walls not close with 1\n"));
+		if (s_map->split_map[y][0] != '1' || s_map->split_map[y][len
+			- 1] != '1')
+			return (ft_error("Error: side wall not close with 1\n"));
 		y++;
 	}
-
-	if ((int)ft_strlen(s_map->split_map[y]) != len)
-		return (ft_error("Error: bottom row not correct\n"));
 	x = 0;
-	while ( x < len)
-	{
-		if (s_map->split_map[y][x] != '1')
+	while (x < len)
+		if (s_map->split_map[y][x++] != '1')
 			return (ft_error("Error: bottom wall not close with 1\n"));
-		x++;
-	}
-	if (++y < 3 || len < 3)
-		return (ft_error("Error: Rectangle too small\n"));
-
-	s_map->height = y;
+	if ((int)ft_strlen(s_map->split_map[y]) != len)
+		return (ft_error("Error: bottom row incorrect\n"));
+	check_minium_size(s_map, y, len);
 	return (0);
 }
 

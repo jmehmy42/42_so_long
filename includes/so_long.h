@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:20:16 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/08 18:46:36 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/09 14:27:24 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_rmap
 	char	*buffer;
 	char	*result;
 	char	*tmp;
-	int read_return ;
+	int		read_return ;
 }			t_rmap;
 
 void		get_positions(t_map *s_map);
@@ -96,5 +96,5 @@ int			key_hook(int keycode, t_map *map);
 void		render_map(t_map *map, int x, int y);
 void		draw_exit(t_map *map, int x, int y);
 void		unlock_exit(t_map *map);
-
+int			chars_check(t_map *s_map, char *str);
 #endif

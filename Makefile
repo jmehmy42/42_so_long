@@ -6,7 +6,7 @@
 #    By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/01 14:25:19 by jmehmy            #+#    #+#              #
-#    Updated: 2025/04/08 18:36:31 by jmehmy           ###   ########.fr        #
+#    Updated: 2025/04/09 14:28:55 by jmehmy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ EXT_LIB = libmlx.a
 
 CC = cc
 RM = rm -fr
-CFLAGS = -Wall -Wextra -Werror -g -O3 -Iinclude -I$(LIBFT) -I$(MLX)
+CFLAGS = -Wall -Wextra -Werror -O3 -Iinclude -I$(LIBFT) -I$(MLX)
 LDFLAGS = -L$(LIBFT) -lft -L$(MLX) -lmlx -L/usr/include/X11/extensions -lX11 -lXext
 
 all: ${EXT_LIB} libft.a ${NAME}
@@ -43,7 +43,7 @@ ${EXT_LIB}:
 libft.a:
 	@if [ ! -f ${LIBFT}/libft.a ]; then \
 		make -C ${LIBFT}; \
-		make -C ${LIBFT} CFLAGS=" -g -Wall -Wextra -Werror -fPIC"; \
+		make -C ${LIBFT} CFLAGS=" -Wall -Wextra -Werror -fPIC"; \
 	fi
 
 clean:

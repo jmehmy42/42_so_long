@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:16:33 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/08 18:35:20 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/09 12:32:05 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	free_mlx_window(t_map *map)
 	free_string(map->split_map);
 	if (map->m_pack->win)
 	{
-			mlx_destroy_window(map->m_pack->mlx, map->m_pack->win);
-			free(map->m_pack->win);
-		}
+		mlx_destroy_window(map->m_pack->mlx, map->m_pack->win);
+		free(map->m_pack->win);
+	}
 	if (map->m_pack->mlx)
 	{
 		mlx_destroy_display(map->m_pack->mlx);

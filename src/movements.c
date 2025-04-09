@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 18:05:41 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/08 23:55:25 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/09 12:32:47 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,27 @@ void	item_collected(t_map *map, int *items_count)
 	}
 }
 
+static void	update_player_position(t_map *map, int new_x, int new_y)
+{
+	map->split_map[map->player_y][map->player_x] = map->tile_under_player;
+	if (map->split_map[new_y][new_x] == 'E')
+		map->tile_under_player = 'E';
+	else
+		map->tile_under_player = '0';
+	map->player_x = new_x;
+	map->player_y = new_y;
+	map->split_map[map->player_y][map->player_x] = 'P';
+}
+
+static void	render_movement(t_map *map, int x, int y, int *count)
+{
+	image_2_map(map, map->m_pack->floor, map->player_x - x, map->player_y - y);
+	image_2_map(map, map->m_pack->player, map->player_x, map->player_y);
+	if (map->open_door)
+		draw_exit(map, map->x_exit, map->y_exit);
+	ft_printf("Movements: %d\n", ++count);
+}
+
 void	movement(t_map *map, int x, int y)
 {
 	static int	items_count = 0;
@@ -70,18 +91,6 @@ void	movement(t_map *map, int x, int y)
 		else
 			ft_putstr_fd("collect all items before exit\n", 1);
 	}
-	map->split_map[map->player_y][map->player_x] = map->tile_under_player;
-	if (map->split_map[new_y][new_x] == 'E')
-		map->tile_under_player = 'E';
-	else
-		map->tile_under_player = '0';
-	
-	map->player_x = new_x;
-	map->player_y = new_y;
-	map->split_map[map->player_y][map->player_x] = 'P';
-	image_2_map(map, map->m_pack->floor, map->player_x - x, map->player_y - y);
-	image_2_map(map, map->m_pack->player, map->player_x, map->player_y);
-	if (map->open_door)
-		draw_exit(map, map->x_exit, map->y_exit);
-	ft_printf("Movements: %d\n", ++count);
+	update_player_position(map, new_x, new_y);
+	render_movement(map, x, y, &count);
 }
