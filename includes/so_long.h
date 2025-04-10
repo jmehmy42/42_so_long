@@ -6,7 +6,7 @@
 /*   By: jmehmy <jmehmy@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:20:16 by jmehmy            #+#    #+#             */
-/*   Updated: 2025/04/09 14:27:24 by jmehmy           ###   ########.fr       */
+/*   Updated: 2025/04/09 16:06:10 by jmehmy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,9 @@ typedef struct s_map
 	int		height;
 	int		player_exit;
 	int		open_door;
-	char	tile_under_player;
+	char	current_tile;
 	t_pack	*m_pack;
 }			t_map;
-
-typedef struct s_rmap
-{
-	char	*buffer;
-	char	*result;
-	char	*tmp;
-	int		read_return ;
-}			t_rmap;
 
 void		get_positions(t_map *s_map);
 int			char_finder(char *s, char c);
@@ -94,7 +86,8 @@ void		item_collected(t_map *map, int *items_count);
 void		movement(t_map *map, int x, int y);
 int			key_hook(int keycode, t_map *map);
 void		render_map(t_map *map, int x, int y);
-void		draw_exit(t_map *map, int x, int y);
 void		unlock_exit(t_map *map);
+void		draw_exit(t_map *map, int x, int y);
+void		draw_exit2(t_map *map, int x, int y);
 int			chars_check(t_map *s_map, char *str);
 #endif
